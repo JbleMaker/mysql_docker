@@ -102,6 +102,19 @@ set profiling = 1;
 explain analyze select * from student_tb;
 explain analyze select * from class_tb;
 
-
+select
+	crt.class_register_id,
+    (select class_name from class_tb ct where ct.class_id = crt.class_id) as class_name,
+    (select student_id from student_tb st where st.student_id = crt.student_id) as student_id,
+    (select student_name from student_tb st where st.student_id = crt.student_id) as student_name
+from
+	class_register_tb crt
+where class_id = (select 
+						class_id
+					from
+						class_tb
+					where 
+						price = 200000)
+order by student_id asc;
 
 
